@@ -1,41 +1,28 @@
-﻿@{
+﻿@model IEnumerable<News>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-
-    <div class="home-content">
-        <h1 class="home-title">Новини</h1>
-        <li class="news">
+<div class="home-content">
+    <h1 class="home-title">Новини</h1>
+    <li class="news">
+        @foreach (var item in Model)
+        {
             <ul class="news-item">
                 <div class="news-photo">
                     <img src="~/img/chess.jpg" alt="Новина">
                 </div>
                 <div class="news-content">
                     <p class="news-title">
-                        Чемпіонат світу з шахів відбудеться у Львові цього року
+                        @item.Title
                     </p>
                     <div class="news-about">
                         <a class="btn btn-dark news-btn text-white">Переглянути</a>
-                        <p class="news-date">Опубліковано: 08.03.2020</p>
+                        <p class="news-date">Опубліковано: @item.PublicationDate</p>
                     </div>
                 </div>
             </ul>
+        }
 
-            <ul class="news-item">
-                <div class="news-photo">
-                    <img src="~/img/chess.jpg" alt="Новина">
-                </div>
-                <div class="news-content">
-                    <p class="news-title">
-                        Чемпіонат світу з шахів відбудеться у Львові цього року
-                        Чемпіонат світу з шахів відбудеться у Львові цього року
-                    </p>
-                    <div class="news-about">
-                        <a class="btn btn-dark news-btn text-white">Переглянути</a>
-                        <p class="news-date">Опубліковано: 08.03.2020</p>
-                    </div>
-                </div>
-            </ul>
-
-        </li>
-    </div>
+    </li>
+</div>
