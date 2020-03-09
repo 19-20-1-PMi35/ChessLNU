@@ -1,0 +1,110 @@
+﻿/*Скидання стилів*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Контейнер*/
+
+.container {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/*Стилі головної сторінки*/
+
+.home-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.news {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-item {
+    background: rgb(241, 239, 239);
+    border: 2px solid grey;
+    border-radius: 10px;
+    width: 70%;
+    display: flex;
+    margin: 0 auto 30px;
+    overflow: hidden;
+}
+
+.news-photo {
+    overflow: hidden;
+    display: flex;
+    width: 35%;
+    align-items: center;
+}
+
+.news-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.news-content {
+    padding: 3%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.news-title {
+    word-wrap: break-word;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.news-about {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.news-date {
+    display: block;
+    margin: auto 0;
+}
+
+.news-btn {
+    display: block;
+    padding: 5px;
+}
+
+@media screen and (max-width: 780px) {
+    .news-item {
+        flex-direction: column;
+    }
+
+    .news-photo {
+        width: 100%;
+    }
+
+    .news-content {
+        width: 100%;
+    }
+
+    .news-about {
+        flex-direction: column;
+    }
+
+    .news-date {
+        margin-bottom: 20px;
+    }
+
+    .news-btn {
+        margin-bottom: 20px;
+    }
+}
