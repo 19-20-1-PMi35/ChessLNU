@@ -20,7 +20,7 @@ namespace CompetitionApp.Controllers
             db = context;
             if (db.Users.Count() == 0)
             {
-                User u1 = new User { Login = "some_user", Password = "Some2020", Email = "some@gmail.com", IsAdmin = false };
+                User u1 = new User { UserName = "some_user", Password = "Some2020", Email = "some@gmail.com", IsAdmin = false };
 
                 News news1 = new News { Title = "Event1", PublicationDate = DateTime.Now, Content = "Some Content1", Publicator = u1 };
                 News news2 = new News { Title = "Event2", PublicationDate = DateTime.Now, Content = "Some Content2", Publicator = u1 };
