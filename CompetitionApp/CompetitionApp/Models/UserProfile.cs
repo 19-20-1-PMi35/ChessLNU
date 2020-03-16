@@ -9,9 +9,8 @@ namespace CompetitionApp.Models
 {
     public class UserProfile
     {
-        [Key]
-        [ForeignKey("User")]
-        public int Id { get; set; }
+        [Key, ForeignKey("User")]
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
