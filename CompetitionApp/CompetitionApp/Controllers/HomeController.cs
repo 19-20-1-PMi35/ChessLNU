@@ -29,16 +29,9 @@ namespace CompetitionApp.Controllers
                 News news5 = new News { Title = "Event5", PublicationDate = DateTime.Now, Content = "Some Content5", Publicator = u1 };
                 News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", Publicator = u1 };
 
-                NewsImage newsImage1 = new NewsImage { News = news1 };
-                NewsImage newsImage2 = new NewsImage { News = news2 };
-                NewsImage newsImage3 = new NewsImage { News = news3 };
-                NewsImage newsImage4 = new NewsImage { News = news4 };
-                NewsImage newsImage5 = new NewsImage { News = news5 };
-                NewsImage newsImage6 = new NewsImage { News = news6 };
-
+                
                 db.Add(u1);
                 db.News.AddRange(news1, news2, news3, news4, news5, news6);
-                db.NewsImages.AddRange(newsImage1, newsImage2, newsImage3, newsImage4, newsImage5, newsImage6);
                 db.SaveChanges();
             }
         }
@@ -47,16 +40,16 @@ namespace CompetitionApp.Controllers
         {
             int pageSize = 3;
 
-            IQueryable<NewsImage> newsImages = db.NewsImages.Include(n => n.News);
-            newsImages = newsImages.OrderBy(u => u.News.PublicationDate);
-            var count = await newsImages.CountAsync();
-            var items = await newsImages.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            IQueryable<News> news = db.News;
+            news = news.OrderBy(u => u.PublicationDate);
+            var count = await news.CountAsync();
+            var items = await news.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             PageView pageViewModel = new PageView(count, page, pageSize);
             IndexView viewModel = new IndexView
             {
                 PageView = pageViewModel,
-                NewsImage = items
+                News = items
             };
             return View(viewModel);
         }

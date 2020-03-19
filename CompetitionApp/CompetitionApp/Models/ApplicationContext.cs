@@ -14,9 +14,7 @@ namespace CompetitionApp.Models
         public DbSet<UserHistory> UserHistories { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<News> News { get; set; }
-        public DbSet<NewsImage> NewsImages { get; set; }
-
+        public DbSet<News> News { get; set; }     
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {

@@ -7,7 +7,7 @@ namespace CompetitionApp.Models
 {
     public class IndexView
     {
-        public IEnumerable<NewsImage> NewsImage { get; set; }
+        public IEnumerable<News> News { get; set; }
         public PageView PageView { get; set; }
     }
 }

@@ -9,7 +9,7 @@
     <div class="home-content">
         <h1 class="home-title">Новини</h1>
         <li class="news">
-            @foreach (NewsImage item in Model.NewsImage)
+            @foreach (News item in Model.News)
             {
                 <ul class="news-item">
                     <div class="news-photo">
@@ -17,11 +17,11 @@
                     </div>
                     <div class="news-content">
                         <p class="news-title">
-                            @item.News.Title
+                            @item.Title
                         </p>
                         <div class="news-about">
                             <a class="btn btn-dark news-btn text-white">Переглянути</a>
-                            <p class="news-date">Опубліковано: @item.News.PublicationDate</p>
+                            <p class="news-date">Опубліковано: @item.PublicationDate</p>
                         </div>
                     </div>
                 </ul>
