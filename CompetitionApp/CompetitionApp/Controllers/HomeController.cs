@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CompetitionApp.Models;
 using Microsoft.EntityFrameworkCore;
+using CompetitionApp.ViewModels;
+using System.IO;
 
 namespace CompetitionApp.Controllers
 {
@@ -54,6 +56,42 @@ namespace CompetitionApp.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult CreateNews(string Id)
+        {
+            if (Id == "")
+                return Redirect("Index");
+            ViewBag.Id = Id;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNews(NewsViewModel _news)
+        {
+            if (ModelState.IsValid)
+            {
+                if (db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId) != null)
+                {
+                    User us = db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId);
+                    News news = new News() { Title = _news.Title, PublicationDate = _news.PublicationDate, Content = _news.Content, Publicator = us };
+                    if (_news.Image != null)
+                    {
+                        byte[] imageData = null;
+
+                        using (var binaryReader = new BinaryReader(_news.Image.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)_news.Image.Length);
+                        }
+
+                        news.Image = imageData;
+                    }
+                    db.News.Add(news);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }               
+            }
+            return View(_news);
+        }
 
         public IActionResult Privacy()
         {

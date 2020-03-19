@@ -1,0 +1,42 @@
+﻿@model CompetitionApp.ViewModels.NewsViewModel
+
+@{
+    ViewData["Title"] = "CreateNews";
+}
+
+<h1>Створити</h1>
+
+<h4>Новину</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Home" asp-action="CreateNews" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label><br />
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublicationDate" class="control-label"></label><br />
+                <input asp-for="PublicationDate" class="form-control" />
+                <span asp-validation-for="PublicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label><br />
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div>
+                <input asp-for="PublicatorId" type="hidden" value="@ViewBag.Id">
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label><br />
+                <input asp-for="Image" type="file" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Створити" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
