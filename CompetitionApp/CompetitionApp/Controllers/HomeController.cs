@@ -73,7 +73,7 @@ namespace CompetitionApp.Controllers
                 if (db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId) != null)
                 {
                     User us = db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId);
-                    News news = new News() { Title = _news.Title, PublicationDate = _news.PublicationDate, Content = _news.Content, Publicator = us };
+                    News news = new News() { Title = _news.Title, PublicationDate = DateTime.Now, Content = _news.Content, Publicator = us };
                     if (_news.Image != null)
                     {
                         byte[] imageData = null;

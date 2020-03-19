@@ -14,10 +14,6 @@ namespace CompetitionApp.ViewModels
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "Дата")]
-        public DateTime PublicationDate { get; set; }
-
-        [Required]
         [Display(Name = "Текст")]
         public string Content { get; set; }
         public string PublicatorId { get; set; }
