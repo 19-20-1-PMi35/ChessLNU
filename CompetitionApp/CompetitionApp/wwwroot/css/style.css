@@ -83,6 +83,28 @@
     padding: 5px;
 }
 
+/* Стилі форм реєстрації, авторизації */
+
+.form-header {
+    margin-bottom: 50px;
+}
+
+.form-group {
+    margin: 20px;
+    width: 40%;
+}
+
+.form-btn {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+/* Стилі для малих екранів */
+
 @media screen and (max-width: 780px) {
     .news-item {
         flex-direction: column;
@@ -106,5 +128,10 @@
 
     .news-btn {
         margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin: 10px;
+        width: 90%;
     }
 }
