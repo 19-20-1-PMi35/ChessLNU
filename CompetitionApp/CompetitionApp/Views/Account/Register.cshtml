@@ -4,56 +4,59 @@
 }
 
 @model CompetitionApp.ViewModels.RegisterViewModel
-<h2>Реєстрація</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="UserName"></label><br />
-        <input asp-for="UserName" />
-        <span asp-validation-for="UserName"></span>
-    </div>
-    <div>
-        <label asp-for="Name"></label><br />
-        <input asp-for="Name" />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Surname"></label><br />
-        <input asp-for="Surname" />
-        <span asp-validation-for="Surname"></span>
-    </div>
-    <div>
-        <label asp-for="BirthDate"></label><br />
-        <input asp-for="BirthDate" />
-        <span asp-validation-for="BirthDate"></span>
-    </div>
-    <div>
-        <label asp-for="University"></label><br />
-        <input asp-for="University" />
-        <span asp-validation-for="University"></span>
-    </div>
-    <div>
-        <label asp-for="Faculty"></label><br />
-        <input asp-for="Faculty" />
-        <span asp-validation-for="Faculty"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Зараэструватися" />
-    </div>
-</form>
+<h2 class="form-header text-center">Реєстрація</h2>
 
+<form method="post" asp-controller="Account" asp-action="Register">
+<div asp-validation-summary="ModelOnly"></div>
+
+<div class="mx-auto form-group">
+    <label asp-for="Email"></label><br />
+    <input class="form-control" asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="UserName"></label><br />
+    <input class="form-control" asp-for="UserName" />
+    <span asp-validation-for="UserName"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="Name"></label><br />
+    <input class="form-control" asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="Surname"></label><br />
+    <input class="form-control" asp-for="Surname" />
+    <span asp-validation-for="Surname"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="BirthDate"></label><br />
+    <input class="form-control" asp-for="BirthDate" />
+    <span asp-validation-for="BirthDate"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="University"></label><br />
+    <input class="form-control" asp-for="University" />
+    <span asp-validation-for="University"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="Faculty"></label><br />
+    <input class="form-control" asp-for="Faculty" />
+    <span asp-validation-for="Faculty"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="Password"></label><br />
+    <input class="form-control" asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+</div>
+<div class="mx-auto form-group">
+    <label asp-for="PasswordConfirm"></label><br />
+    <input class="form-control" asp-for="PasswordConfirm" />
+    <span asp-validation-for="PasswordConfirm"></span>
+</div>
+<div class="mx-auto form-group">
+    <div class="row">
+        <input class="mx-auto btn btn-primary form-btn" type="submit" value="Зареєструватися" />
+    </div>
+</div>
+</form>

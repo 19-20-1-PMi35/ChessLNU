@@ -1,0 +1,28 @@
+﻿@model CompetitionApp.ViewModels.LoginViewModel
+
+<h2 class="form-header text-center">Авторизація</h2>
+
+<form class="text-center" method="post" asp-controller="Account" asp-action="Login"
+      asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="mx-auto form-group">
+        <label asp-for="UserName"></label><br />
+        <input class="form-control" asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div class="mx-auto form-group">
+        <label asp-for="Password"></label><br />
+        <input class="form-control" asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="mx-auto form-check">
+        <input class="form-check-input" asp-for="RememberMe" />
+        <label asp-for="RememberMe"></label>
+    </div>
+    <div class="mx-auto form-group">
+        <div class="row">
+            <input class="mx-auto btn btn-primary form-btn" type="submit" value="Увійти" />
+        </div>
+    </div>
+</form>
