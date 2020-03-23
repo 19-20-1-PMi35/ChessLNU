@@ -31,9 +31,18 @@ namespace CompetitionApp.Controllers
                 News news5 = new News { Title = "Event5", PublicationDate = DateTime.Now, Content = "Some Content5", Publicator = u1 };
                 News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", Publicator = u1 };
 
-                
+                Category category1 = new Category { Name = "Sport", ParentCategoryId = 0 };
+                Category category2 = new Category { Name = "Science", ParentCategoryId = 1 };
+
+                Event event1 = new Event { Title = "Event1", DateTime = DateTime.Now, Place = "Street 1", Category = category1, IsFinished = false };
+                Event event2 = new Event { Title = "Event2", DateTime = DateTime.Now, Place = "Street 2", Category = category2, IsFinished = false };
+                Event event3 = new Event { Title = "Event3", DateTime = DateTime.Now, Place = "Street 3", Category = category1, IsFinished = false };
+                Event event4 = new Event { Title = "Event4", DateTime = DateTime.Now, Place = "Street 4", Category = category2, IsFinished = false };
+
                 db.Add(u1);
                 db.News.AddRange(news1, news2, news3, news4, news5, news6);
+                db.Categories.AddRange(category1, category2);
+                db.Events.AddRange(event1, event2, event3, event4);
                 db.SaveChanges();
             }
         }

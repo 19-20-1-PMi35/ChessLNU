@@ -24,6 +24,36 @@ namespace CompetitionApp.Controllers
             return View(await _context.Events.ToListAsync());
         }
 
+        public async Task<IActionResult> Show(int? category, string title, int page = 1)
+        {
+            int pageSize = 3;
+
+            IQueryable<Event> events = _context.Events.Include(c => c.Category);
+
+            if (category != 0 && category != null)
+            {
+                events = events.Where(c => c.Category.Id == category);
+            }
+            if (!String.IsNullOrEmpty(title))
+            {
+                events = events.Where(e => e.Title.Contains(title));
+            }
+
+            events = events.OrderBy(d => d.DateTime);
+
+            var count = await events.CountAsync();
+            var items = await events.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+
+            EventView viewModel = new EventView
+            {
+                PageView = new PageView(count, page, pageSize),
+                EventFilterViewModel = new EventFilterViewModel(_context.Categories.ToList(), category, title),
+                Events = items
+            };
+            return View(viewModel);
+        }
+
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
