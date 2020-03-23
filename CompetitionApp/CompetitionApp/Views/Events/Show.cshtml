@@ -1,0 +1,44 @@
+﻿@using CompetitionApp.Models
+@model EventView
+@addTagHelper *, CompetitionApp
+@{
+    ViewData["Title"] = "Show";
+}
+
+    <div class="event-content">
+        <h1 class="events-title">Змагання</h1>
+        <form method="get">
+            <div class="event-form">
+                <label class="event-label">Назва: </label>
+                <input name="title" value="@Model.EventFilterViewModel.SelectedTitle" class="form-control event-control "/>
+
+                <label class="event-label">Категорія: </label>
+                <select name="category" asp-items="Model.EventFilterViewModel.Categories" class="form-control event-control "></select>
+
+                <input type="submit" value="Фільтр" class="btn btn-dark" />
+            </div>
+        </form>
+
+        <li class="event">
+            @foreach (Event item in Model.Events)
+            {
+                <ul class="event-item">
+                    <div class="event-content">
+                        <p class="event-title">
+                            @item.Title
+                        </p>
+                        <div class="event-about">
+                            <p>Категорія: @item.Category.Name</p>
+                            <p>Місце проведення: @item.Place</p>
+                            <p>Дата проведення: @item.DateTime</p>
+                        </div>
+                        <a class="btn btn-dark event-btn text-white">Взяти участь</a>
+                    </div>
+                </ul>
+            }
+        </li>
+        <page-link page-model="Model.PageView" page-action="Show"
+                   page-url-title="@(Model.EventFilterViewModel.SelectedTitle)"
+                    page-url-category="@(Model.EventFilterViewModel.SelectedCategory)"></page-link>
+    </div>
+
