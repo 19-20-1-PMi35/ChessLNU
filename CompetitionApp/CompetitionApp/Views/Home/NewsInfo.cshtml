@@ -1,0 +1,30 @@
+﻿@model CompetitionApp.Models.News
+@{
+    ViewData["Title"] = "NewsInfo";
+}
+
+<div>
+    <h1 class="info-title">Новини</h1>
+    <div class="container content-lg">
+        <div class="row">
+            <div class="col-sm-4">
+                @if (Model.Image == null)
+                {
+                    <img class="info-photo" src="~/img/chess.jpg" alt="Новина">
+                }
+                else
+                {
+                    <img class="info-photo" alt="Новина" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                }
+            </div>
+            <div class="col-sm-7 sm-margin-l-30">
+                <div class="info-news-about">
+                    <p class="info-news-title">@Model.Title</p>
+                    <p class="info-news-date">Опубліковано: @Model.PublicationDate</p>
+                    <p class="info-news-content">@Model.Content</p>
+                </div>
+            </div>   
+            <a asp-action="Index" class="btn btn-dark news-btn text-white back-button">Повернутися</a>
+        </div>
+    </div>
+</div>

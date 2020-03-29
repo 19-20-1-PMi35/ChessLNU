@@ -47,12 +47,29 @@ namespace CompetitionApp.Controllers
             }
         }
 
+        public async Task<IActionResult> NewsInfo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var news = await db.News
+                .FirstOrDefaultAsync(n => n.Id == id);
+            if (news == null)
+            {
+                return NotFound();
+            }
+
+            return View(news);
+        }
+
         public async Task<IActionResult> Index(int page = 1)
         {
             int pageSize = 3;
 
             IQueryable<News> news = db.News;
-            news = news.OrderBy(u => u.PublicationDate);
+            news = news.OrderByDescending(u => u.PublicationDate);
             var count = await news.CountAsync();
             var items = await news.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
