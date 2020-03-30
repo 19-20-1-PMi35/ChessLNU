@@ -31,13 +31,12 @@ h1, h2, h3, h4, h5, h6 {
 /* Header */
 .header {
 	width: 100%;
-
-	background-color: #00078a; 
-
+	background-color: #292b2c;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 1000;
+	margin-bottom: 30px;
 }
 
 .header_inner{
@@ -53,19 +52,17 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 700;
 	color: #fff;
 	text-decoration: none;
-
+	transition: color 0.2s linear;
 }
 
-.header__registration {
-
-	
+.header__logo:hover {
+	text-decoration: none;
+	color: lightgrey;
 }
-
 
 /* Nav */
 .nav {
-	font-size: 20px;
-	text-transform: uppercase;
+	font-size: 24px;
 }
 
 .nav__link {
@@ -75,25 +72,21 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px auto;
 
 	color: #fff;
-
 	text-decoration: none;
-
 	transition: color 0.2s linear;
-	
-
 }
 
 .nav__link:hover {
-	color: #e60000;
+	color: lightgrey;
+	text-decoration: none;
 }
 
 .nav__link:hover:after {
-	opacity 1;
+	opacity: 1;
 }
 
 /* Reg */
 .reg {
-	font-size: 20px;
-	text-transform: uppercase;
+	font-size: 24px;
 }
 
