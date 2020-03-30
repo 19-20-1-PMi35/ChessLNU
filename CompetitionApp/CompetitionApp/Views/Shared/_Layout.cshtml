@@ -8,23 +8,35 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/Layout.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
     <header class="header">
         <div class="container">
             <div class="header_inner">
-                <div class="header__logo">LNU Competition</div>
+                <a asp-controller="Home" asp-action="Index" class="header__logo">LNU Competition</a>
 
                 <nav class="nav">
-                    <a class="nav__link" href="About.html">Головна</a>
-                    <a class="nav__link" href="Service.html">Змагання</a>
-                    <a class="nav__link" href="Video.html">Відео</a>
-                    <a class="nav__link" href="#">Контакти</a>
+                    <a asp-controller="Home" asp-action="Index" class="nav__link">Головна</a>
+                    <a asp-controller="Events" asp-action="Index" class="nav__link">Змагання</a>
+                    <a asp-controller="Home" asp-action="Index" class="nav__link">Відео</a>
+                    <a asp-controller="Home" asp-action="Index" class="nav__link">Контакти</a>
                 </nav>
 
                 <nav class="reg">
-                    <a class="nav__link" href="">Реєстрація</a>
-                    <a class="nav__link" href="">Вхід</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
+
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" value="Вихід" />
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="nav__link" asp-controller="Account" asp-action="Login">Вхід</a>
+                        <a class="nav__link" asp-controller="Account" asp-action="Register">Реєстрація</a>
+                    }
                 </nav>
             </div>
         </div>
@@ -35,9 +47,54 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer">
         <div class="container">
-            &copy; 2020 - CompetitionApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+            <div class="footer-upper">
+                <p class="footer-upper__text">Слідкуйте за нами у соціальних мережах!</p>
+
+                <ul class="footer-upper__socials social-network social-circle">
+                    <li><a href="https://www.instagram.com" class="icoInstagram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.twitter.com" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.google.com" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="https://www.linkedin.com" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-main">
+                <div class="footer-first-column">
+                    <h4 class="footer-column-header">Про нас</h4>
+                    <div class="footer-column-content">
+                        <p>Ми хочемо надати студентам та викладачам різних ВУЗів України можливість змагатися в різноманітних дисциплінах,
+                           щоб дізнатися, хто з них найращий. Тож не гайте часу і приєднуйтеся!</p>
+                    </div>
+                </div>
+                <div class="footer-second-column">
+                    <h4 class="footer-column-header">Посилання</h4>
+                    <div class="footer-column-content">
+                        <a href="#">Головна</a>
+                        <a href="#">Змагання</a>
+                        <a href="#">Відео</a>
+                        <a href="#">Контакти</a>
+                    </div>
+                </div>
+                <div class="footer-third-column">
+                    <h4 class="footer-column-header">Контакти</h4>
+                    <div class="footer-column-content">
+                        <p><i class="fa fa-home"></i> Львів, вул. Університетська 1</p>
+                        <p><i class="fa fa-envelope"></i> info@example.com</p>
+                        <p><i class="fa fa-phone"></i> + 01 234 567 88</p>
+                        <p><i class="fa fa-print"></i> + 01 234 567 89</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-lower text-center">
+                &copy; 2020 <a asp-area="" asp-controller="Home" asp-action="Index">LNUCometition.com</a>
+            </div>
+
+
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

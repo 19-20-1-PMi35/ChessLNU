@@ -16,8 +16,42 @@
     margin: 0 auto;
 }
 
-/*Стилі головної сторінки*/
+/* Хедер */
 
+.header form {
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px auto;
+}
+
+.header-login {
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px auto;
+    color: #fff;
+}
+
+.header-login span {
+    color: lightgrey;
+}
+
+.header input[type=submit] {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s linear;
+}
+
+.header input[type=submit]:hover {
+    color: lightgrey;
+}
+
+/*Стилі головної сторінки*/
 .home-title {
     text-align: center;
     margin-bottom: 40px;
@@ -239,6 +273,145 @@ input[type=checkbox] {
     transform: scale(1.5);
 }
 
+/* Стилі футера */
+
+.footer {
+    background: #292b2c;
+    color: white;
+}
+
+.footer-upper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-upper__text {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-main {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-column-header {
+    margin-bottom: 20px;
+    color: lightgrey;
+}
+
+.footer-first-column {
+    max-width: 25%;
+}
+
+.footer-second-column .footer-column-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-second-column a {
+    color: lightgrey;
+    text-decoration: none;
+    transition: all 0.1s linear;
+}
+
+.footer-second-column a:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+.footer-lower {
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.footer-lower a {
+    color: lightgrey;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+
+.footer-lower a:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Стилі іконок */
+
+ul.social-network {
+    list-style: none;
+    display: inline;
+    padding: 0;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.social-network a.icoInstagram:hover {
+    background-color: #E1306C;
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3B5998;
+}
+
+.social-network a.icoTwitter:hover {
+    background-color: #33ccff;
+}
+
+.social-network a.icoGoogle:hover {
+    background-color: #BD3518;
+}
+
+.social-network a.icoVimeo:hover {
+    background-color: #0590B8;
+}
+
+.social-network a.icoLinkedin:hover {
+    background-color: #007bb7;
+}
+
+.social-network a.icoInstagram:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+    color: #fff;
+}
+
+a.socialIcon:hover, .socialHoverClass {
+    color: #44BCDD;
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    background-color: none /*#D3D3D3*/;
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+}
+
+.social-circle li a:hover i, .triggeredHover {
+    transform: rotate(360deg);
+    transition: all 0.2s;
+}
+
+.social-circle i {
+    color: #fff;
+    transition: all 0.8s;
+}
+
 /* Стилі для малих екранів */
 
 @media screen and (max-width: 780px) {
@@ -269,5 +442,27 @@ input[type=checkbox] {
     .form-group {
         margin: 10px;
         width: 90%;
+    }
+
+    /* Футер */
+    .footer-main {
+        flex-direction: column;
+    }
+
+    .footer-column {
+        margin-bottom: 15px;
+    }
+
+    .footer-first-column {
+        max-width: 100%;
+    }
+
+    .footer-second-column {
+        margin-bottom: 20px;
+    }
+
+    .footer-upper {
+        flex-direction: column;
+        align-items: center;
     }
 }
