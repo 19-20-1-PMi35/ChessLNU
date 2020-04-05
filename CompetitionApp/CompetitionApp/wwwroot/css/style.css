@@ -296,6 +296,11 @@ input[type=checkbox] {
     justify-content: space-around;
 }
 
+.footer-main a {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
 .footer-column-header {
     margin-bottom: 20px;
     color: lightgrey;
@@ -410,6 +415,32 @@ a.socialIcon:hover, .socialHoverClass {
 .social-circle i {
     color: #fff;
     transition: all 0.8s;
+}
+
+/* Стилі сторінки адміністратора */
+
+.admin-header {
+    margin-bottom: 50px;
+}
+
+.admin-link {
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #292b2c;
+    transition: all 0.2s;
+}
+
+.admin-link:hover {
+    color: grey;
+    text-decoration: none;
+    transform: scale(1.1);
+}
+
+.admin-list li:hover {
+    transform: scale(1.2);
 }
 
 /* Стилі для малих екранів */
