@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using CompetitionApp.Models;
 
 namespace CompetitionApp.Controllers
@@ -12,10 +13,12 @@ namespace CompetitionApp.Controllers
     public class EventsController : Controller
     {
         private readonly ApplicationContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public EventsController(ApplicationContext context)
+        public EventsController(UserManager<User> userManager, ApplicationContext context)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Events
@@ -29,6 +32,29 @@ namespace CompetitionApp.Controllers
             int pageSize = 3;
 
             IQueryable<Event> events = _context.Events.Include(c => c.Category);
+
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId != null)
+            {
+                List<UserHistory> @userHistory = await _context.UserHistories.Include(e => e.Event).ToListAsync();
+                if (@userHistory != null)
+                {
+                    List<int> userEventsId = new List<int>();
+                    for (int i = 0; i < @userHistory.Count(); i++)
+                    {
+                        userEventsId.Add(@userHistory[i].EventId);
+                    }
+                    ViewBag.Id = userEventsId;
+                }
+                else
+                {
+                    ViewBag.Id = null;
+                }
+            }
+            else
+            {
+                ViewBag.Id = null;
+            }
 
             if (category != 0 && category != null)
             {
@@ -70,6 +96,41 @@ namespace CompetitionApp.Controllers
             }
 
             return View(@event);
+        }
+
+        public async Task<IActionResult> UserRegistrationOnEvent(int eventId)
+        {
+            var @event = await _context.Events.FindAsync(eventId);
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = _context.Users.Include(e => e.History).FirstOrDefault(u => u.Id == userId);
+
+            if (@event != null && user != null)
+            {
+                UserHistory userHistory = new UserHistory { Event = @event, EventId = @event.Id, UserId = @user.Id, User = @user };
+                user.History.Add(userHistory);
+                _context.UserHistories.Add(userHistory);
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Show));
+        }
+
+        public async Task<IActionResult> CanselUserRegistrationOnEvent(int eventId)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            var user = _context.Users.Include(e => e.Profile).FirstOrDefault(u => u.Id == userId);
+            var userHistory = _context.UserHistories.Include(e => e.Event).FirstOrDefault(u => u.UserId == userId && u.EventId == eventId);
+
+            if (user != null && userHistory != null)
+            {
+                user.History.Remove(userHistory);
+                _context.Entry(user).State = EntityState.Modified;
+                _context.Entry(userHistory).State = EntityState.Deleted;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Show));
         }
 
         // GET: Events/Create
