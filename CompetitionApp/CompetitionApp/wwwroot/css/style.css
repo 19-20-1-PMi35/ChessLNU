@@ -225,7 +225,7 @@
 }
 
 .event-form {
-    justify-content: center;
+    justify-content: right;
     width: 50%;
     align-items: normal;
     display: inline-flex;
@@ -245,7 +245,14 @@
 
 .event-control {
     margin-right: 15px;
+    margin-left: 15px;
+    border-radius: 8%;
+    border-color: lightgray;
+    border-width: 1px;
+    min-width: 80px;
+    max-width: 100px;
 }
+
 
 .event-btn {
     padding: 5px;

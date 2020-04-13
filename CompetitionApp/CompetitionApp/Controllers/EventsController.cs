@@ -27,7 +27,7 @@ namespace CompetitionApp.Controllers
             return View(await _context.Events.ToListAsync());
         }
 
-        public async Task<IActionResult> Show(int? category, string title, int page = 1)
+        public async Task<IActionResult> Show(int? parentCategory, int? category, string title, int page = 1)
         {
             int pageSize = 3;
 
@@ -56,30 +56,58 @@ namespace CompetitionApp.Controllers
                 ViewBag.Id = null;
             }
 
-            if (category != 0 && category != null)
+            //filtration by category
+            if (parentCategory != 0 && parentCategory != null)
             {
-                events = events.Where(c => c.Category.Id == category);
+                events = events.Where(x => x.Category.ParentCategoryId == parentCategory);
+
+                if (category != 0 && category != null && events.FirstOrDefault(e => e.Category.Id == category) != null)
+                {
+                    events = events.Where(c => c.Category.Id == category);
+                }
             }
+            else
+            {
+                if (category != 0 && category != null)
+                {
+                    events = events.Where(c => c.Category.Id == category);
+                }
+            }
+
+            //filtration by name
             if (!String.IsNullOrEmpty(title))
             {
                 events = events.Where(e => e.Title.Contains(title));
             }
 
+            //sorting by date
             events = events.OrderBy(d => d.DateTime);
 
+            //pagination
             var count = await events.CountAsync();
             var items = await events.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-
-            EventView viewModel = new EventView
+            EventView viewModel = null;
+            if (parentCategory != 0 && parentCategory != null)
             {
-                PageView = new PageView(count, page, pageSize),
-                EventFilterViewModel = new EventFilterViewModel(_context.Categories.ToList(), category, title),
-                Events = items
-            };
+                viewModel = new EventView
+                {
+                    PageView = new PageView(count, page, pageSize),
+                    EventFilterViewModel = new EventFilterViewModel(_context.Categories.Where(c => c.ParentCategoryId == 0).ToList(), _context.Categories.Where(x => x.ParentCategoryId == parentCategory).ToList(), parentCategory, category, title),
+                    Events = items
+                };
+            }
+            else
+            {
+                viewModel = new EventView
+                {
+                    PageView = new PageView(count, page, pageSize),
+                    EventFilterViewModel = new EventFilterViewModel(_context.Categories.Where(c => c.ParentCategoryId == 0).ToList(), _context.Categories.Where(x => x.ParentCategoryId != 0).ToList(), parentCategory, category, title),
+                    Events = items
+                };
+            }
             return View(viewModel);
         }
-
         // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {

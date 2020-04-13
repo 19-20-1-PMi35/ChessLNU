@@ -32,16 +32,19 @@ namespace CompetitionApp.Controllers
                 News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", PublicatorId = u1.Id };
 
                 Category category1 = new Category { Name = "Sport", ParentCategoryId = 0 };
-                Category category2 = new Category { Name = "Science", ParentCategoryId = 1 };
+                Category category2 = new Category { Name = "Science", ParentCategoryId = 0 };
+                Category category3 = new Category { Name = "Football", ParentCategoryId = 1 };
+                Category category4 = new Category { Name = "Voleyball", ParentCategoryId = 1 };
+                Category category5 = new Category { Name = "Algebra", ParentCategoryId = 2 };
 
-                Event event1 = new Event { Title = "Event1", DateTime = DateTime.Now, Place = "Street 1", Category = category1, IsFinished = false };
-                Event event2 = new Event { Title = "Event2", DateTime = DateTime.Now, Place = "Street 2", Category = category2, IsFinished = false };
-                Event event3 = new Event { Title = "Event3", DateTime = DateTime.Now, Place = "Street 3", Category = category1, IsFinished = false };
-                Event event4 = new Event { Title = "Event4", DateTime = DateTime.Now, Place = "Street 4", Category = category2, IsFinished = false };
+                Event event1 = new Event { Title = "Event1", DateTime = DateTime.Now, Place = "Street 1", Category = category3, IsFinished = false };
+                Event event2 = new Event { Title = "Event2", DateTime = DateTime.Now, Place = "Street 2", Category = category3, IsFinished = false };
+                Event event3 = new Event { Title = "Event3", DateTime = DateTime.Now, Place = "Street 3", Category = category4, IsFinished = false };
+                Event event4 = new Event { Title = "Event4", DateTime = DateTime.Now, Place = "Street 4", Category = category5, IsFinished = false };
 
                 db.Add(u1);
                 db.News.AddRange(news1, news2, news3, news4, news5, news6);
-                db.Categories.AddRange(category1, category2);
+                db.Categories.AddRange(category1, category2, category3, category4, category5);
                 db.Events.AddRange(event1, event2, event3, event4);
                 db.SaveChanges();
             }
