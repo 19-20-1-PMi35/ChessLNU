@@ -24,12 +24,12 @@ namespace CompetitionApp.Controllers
             {
                 User u1 = new User { UserName = "some_user", Password = "Some2020", Email = "some@gmail.com", IsAdmin = false };
 
-                News news1 = new News { Title = "Event1", PublicationDate = DateTime.Now, Content = "Some Content1", Publicator = u1 };
-                News news2 = new News { Title = "Event2", PublicationDate = DateTime.Now, Content = "Some Content2", Publicator = u1 };
-                News news3 = new News { Title = "Event3", PublicationDate = DateTime.Now, Content = "Some Content3", Publicator = u1 };
-                News news4 = new News { Title = "Event4", PublicationDate = DateTime.Now, Content = "Some Content4", Publicator = u1 };
-                News news5 = new News { Title = "Event5", PublicationDate = DateTime.Now, Content = "Some Content5", Publicator = u1 };
-                News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", Publicator = u1 };
+                News news1 = new News { Title = "Event1", PublicationDate = DateTime.Now, Content = "Some Content1", PublicatorId = u1.Id };
+                News news2 = new News { Title = "Event2", PublicationDate = DateTime.Now, Content = "Some Content2", PublicatorId = u1.Id };
+                News news3 = new News { Title = "Event3", PublicationDate = DateTime.Now, Content = "Some Content3", PublicatorId = u1.Id };
+                News news4 = new News { Title = "Event4", PublicationDate = DateTime.Now, Content = "Some Content4", PublicatorId = u1.Id };
+                News news5 = new News { Title = "Event5", PublicationDate = DateTime.Now, Content = "Some Content5", PublicatorId = u1.Id };
+                News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", PublicatorId = u1.Id };
 
                 Category category1 = new Category { Name = "Sport", ParentCategoryId = 0 };
                 Category category2 = new Category { Name = "Science", ParentCategoryId = 1 };
@@ -99,7 +99,7 @@ namespace CompetitionApp.Controllers
                 if (db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId) != null)
                 {
                     User us = db.Users.FirstOrDefault(u => u.Id == _news.PublicatorId);
-                    News news = new News() { Title = _news.Title, PublicationDate = DateTime.Now, Content = _news.Content, Publicator = us };
+                    News news = new News() { Title = _news.Title, PublicationDate = DateTime.Now, Content = _news.Content, PublicatorId = us.Id };
                     if (_news.Image != null)
                     {
                         byte[] imageData = null;
