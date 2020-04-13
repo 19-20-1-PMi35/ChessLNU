@@ -10,10 +10,13 @@
         <form method="get">
             <div class="event-form">
                 <label class="event-label">Назва: </label>
-                <input name="title" value="@Model.EventFilterViewModel.SelectedTitle" class="form-control event-control "/>
+                <input name="title" value="@Model.EventFilterViewModel.SelectedTitle" class="event-control " />
 
                 <label class="event-label">Категорія: </label>
-                <select name="category" asp-items="Model.EventFilterViewModel.Categories" class="form-control event-control "></select>
+                <select name="parentCategory" asp-items="Model.EventFilterViewModel.ParentCategories" class="event-control "></select>
+
+                <label class="event-label">Підкатегорія: </label>
+                <select name="category" asp-items="Model.EventFilterViewModel.Categories" class="event-control"></select>
 
                 <input type="submit" value="Фільтр" class="btn btn-dark" />
             </div>
