@@ -41,11 +41,12 @@ namespace CompetitionApp.Controllers
                 Event event2 = new Event { Title = "Event2", DateTime = DateTime.Now, Place = "Street 2", Category = category3, IsFinished = false };
                 Event event3 = new Event { Title = "Event3", DateTime = DateTime.Now, Place = "Street 3", Category = category4, IsFinished = false };
                 Event event4 = new Event { Title = "Event4", DateTime = DateTime.Now, Place = "Street 4", Category = category5, IsFinished = false };
+                Event event5 = new Event { Title = "Event5", DateTime = DateTime.Now, Place = "Street 5", Category = category4, IsFinished = false };
 
                 db.Add(u1);
                 db.News.AddRange(news1, news2, news3, news4, news5, news6);
                 db.Categories.AddRange(category1, category2, category3, category4, category5);
-                db.Events.AddRange(event1, event2, event3, event4);
+                db.Events.AddRange(event1, event2, event3, event4, event5);
                 db.SaveChanges();
             }
         }
