@@ -9,6 +9,7 @@ using CompetitionApp.Models;
 using Microsoft.EntityFrameworkCore;
 using CompetitionApp.ViewModels;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
 
 namespace CompetitionApp.Controllers
 {
@@ -17,8 +18,14 @@ namespace CompetitionApp.Controllers
         private readonly ILogger<HomeController> _logger;
         ApplicationContext db;
 
-        public HomeController(ApplicationContext context)
+        private readonly ApplicationContext _context;
+        private readonly UserManager<User> _userManager;
+
+        public HomeController(UserManager<User> userManager, ApplicationContext context)
         {
+            _context = context;
+            _userManager = userManager;
+
             db = context;
             if (db.Users.Count() == 0)
             {
@@ -58,14 +65,43 @@ namespace CompetitionApp.Controllers
                 return NotFound();
             }
 
-            var news = await db.News
-                .FirstOrDefaultAsync(n => n.Id == id);
+            var news = await db.News.FirstOrDefaultAsync(n => n.Id == id);
+
             if (news == null)
             {
                 return NotFound();
             }
 
-            return View(news);
+            ViewBag.UserManager = _userManager; 
+            ViewBag.Comments = _context.NewsComments.Where(x => x.NewsId == news.Id).OrderByDescending(x => x.Date).ToList();
+
+            return View(new Tuple<News, NewsComment>(news, new NewsComment()));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Comment([Bind("Id,Text,Date,Text,UserId,NewsId,ParentId")] NewsComment @comment)
+        {
+            News news = _context.News.FirstOrDefault(x => x.Id == int.Parse(Request.Form["NewsId"]));
+
+            if (ModelState.IsValid)
+            {
+                NewsComment newComment = new NewsComment
+                {
+                    Number = _context.NewsComments.Where(x => x.NewsId == news.Id).Count() + 1,
+                    Text = comment.Text,
+                    Date = DateTime.Now,
+                    UserId = _userManager.GetUserId(HttpContext.User),
+                    NewsId = news.Id
+                };
+
+                _context.Add(@newComment);
+                await _context.SaveChangesAsync();
+
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("NewsInfo", new { id = news.Id });
+            }
+            return View(@news);
         }
 
         public async Task<IActionResult> Index(int page = 1)

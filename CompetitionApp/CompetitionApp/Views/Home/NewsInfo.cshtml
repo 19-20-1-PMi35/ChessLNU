@@ -1,30 +1,61 @@
-﻿@model CompetitionApp.Models.News
+﻿@model Tuple<CompetitionApp.Models.News, CompetitionApp.Models.NewsComment>
+
 @{
     ViewData["Title"] = "NewsInfo";
 }
 
 <div>
     <h1 class="info-title">Новини</h1>
-    <div class="container content-lg">
-        <div class="row">
+    <div class="container ">
+        <div class="row content-lg">
             <div class="col-sm-4">
-                @if (Model.Image == null)
+                @if (Model.Item1.Image == null)
                 {
                     <img class="info-photo" src="~/img/chess.jpg" alt="Новина">
                 }
                 else
                 {
-                    <img class="info-photo" alt="Новина" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                    <img class="info-photo" alt="Новина" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Item1.Image))" />
                 }
             </div>
             <div class="col-sm-7 sm-margin-l-30">
                 <div class="info-news-about">
-                    <p class="info-news-title">@Model.Title</p>
-                    <p class="info-news-date">Опубліковано: @Model.PublicationDate</p>
-                    <p class="info-news-content">@Model.Content</p>
+                    <p class="info-news-title">@Model.Item1.Title</p>
+                    <p class="info-news-date">Опубліковано: @Model.Item1.PublicationDate</p>
+                    <p class="info-news-content">@Model.Item1.Content</p>
                 </div>
-            </div>   
+            </div>
             <a asp-action="Index" class="btn btn-dark news-btn text-white back-button">Повернутися</a>
         </div>
+
+
+        <h2 class="news-comments-header text-center">Коментарі (@ViewBag.Comments.Count)</h2>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            @await Html.PartialAsync("CommentForm", Model.Item2, new ViewDataDictionary(this.ViewData) { { "NewsId", Model.Item1.Id } })
+        }
+        else
+        {
+            <h4 class="comments-warning">Щоб залишити коментар, необхідно <a asp-controller="Account" asp-action="Login">авторизуватися</a></h4>
+        }
+
+        <div class="comments-container">
+            @foreach (var comment in @ViewBag.Comments)
+            {
+                User user = await ViewBag.UserManager.FindByIdAsync(comment.UserId);
+
+                <div class="comment">
+                    <div class="comment-top">
+                        <div class="comment-date">@comment.Date</div>
+                        <div class="comment-author">@user</div>
+                    </div>
+                    <div class="comment-content">@comment.Text</div>
+                </div>
+
+            }
+        </div>
+        <h2></h2>
+
     </div>
 </div>
