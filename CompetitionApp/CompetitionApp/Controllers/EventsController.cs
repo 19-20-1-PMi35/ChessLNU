@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using CompetitionApp.Models;
+using CompetitionApp.ViewModels;
 
 namespace CompetitionApp.Controllers
 {
@@ -24,7 +25,7 @@ namespace CompetitionApp.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            return View(await _context.Events.Include(c => c.Category).ToListAsync());
         }
 
         public async Task<IActionResult> Show(int? parentCategory, int? category, string title, int page = 1)
@@ -116,7 +117,7 @@ namespace CompetitionApp.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
+            var @event = await _context.Events.Include(c => c.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (@event == null)
             {
@@ -162,8 +163,29 @@ namespace CompetitionApp.Controllers
         }
 
         // GET: Events/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+
+            List<Category> parentCategories = await _context.Categories.Where(p => p.ParentCategoryId == 0).ToListAsync();
+            List<SelectListGroup> selectListGroups = new List<SelectListGroup>();
+            for (int i = 0; i < parentCategories.Count(); i++)
+            {
+                SelectListGroup selectGroup = new SelectListGroup { Name = parentCategories[i].Name };
+                selectListGroups.Add(selectGroup);
+            }
+
+            List<Category> categories = await _context.Categories.Where(p => p.ParentCategoryId != 0).ToListAsync();
+            var selectCategories = new List<SelectListItem>();
+            foreach (var item in categories)
+            {
+                string groupName = _context.Categories.Find(item.ParentCategoryId).Name;
+                SelectListItem selectListItem = new SelectListItem { Text = item.Name, Value = item.Id.ToString(), Group = selectListGroups.FirstOrDefault(x => x.Name == groupName), Selected = false };
+                selectCategories.Add(selectListItem);
+            }
+            SelectListItem selectList = new SelectListItem();
+            selectCategories.Insert(0, selectList);
+
+            ViewBag.Categories = selectCategories;
             return View();
         }
 
@@ -172,11 +194,12 @@ namespace CompetitionApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Category,DateTime,Place,IsFinished")] Event @event)
+        public async Task<IActionResult> Create(EventViewModel @event)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                Event newEvent = new Event { Id = @event.Id, Title = @event.Title, DateTime = @event.DateTime, Place = @event.Place, Category = await _context.Categories.FindAsync(@event.CategoryId) };
+                _context.Update(newEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -191,12 +214,36 @@ namespace CompetitionApp.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.FindAsync(id);
+            var @event = await _context.Events.Include(c => c.Category).FirstOrDefaultAsync(e => e.Id == id);
             if (@event == null)
             {
                 return NotFound();
+
             }
-            return View(@event);
+            EventViewModel eventsView = new EventViewModel { Id = @event.Id, Title = @event.Title, CategoryId = @event.Category.Id, DateTime = @event.DateTime, Place = @event.Place, IsFinished = @event.IsFinished };
+
+            List<Category> parentCategories = await _context.Categories.Where(p => p.ParentCategoryId == 0).ToListAsync();
+            List<SelectListGroup> selectListGroups = new List<SelectListGroup>();
+            for (int i = 0; i < parentCategories.Count(); i++)
+            {
+                SelectListGroup selectGroup = new SelectListGroup { Name = parentCategories[i].Name };
+                selectListGroups.Add(selectGroup);
+            }
+
+            List<Category> categories = await _context.Categories.Where(p => p.ParentCategoryId != 0).ToListAsync();
+            var selectCategories = new List<SelectListItem>();
+            foreach (var item in categories)
+            {
+                bool isSelected = false;
+                if (item.Id == eventsView.CategoryId)
+                    isSelected = true;
+                string groupName = _context.Categories.Find(item.ParentCategoryId).Name;
+                SelectListItem selectListItem = new SelectListItem { Text = item.Name, Value = item.Id.ToString(), Group = selectListGroups.FirstOrDefault(x => x.Name == groupName), Selected = isSelected };
+                selectCategories.Add(selectListItem);
+            }
+
+            ViewBag.Categories = selectCategories;
+            return View(eventsView);
         }
 
         // POST: Events/Edit/5
@@ -204,7 +251,7 @@ namespace CompetitionApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Category,DateTime,Place,IsFinished")] Event @event)
+        public async Task<IActionResult> Edit(int id, EventViewModel @event)
         {
             if (id != @event.Id)
             {
@@ -215,7 +262,8 @@ namespace CompetitionApp.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
+                    Event updateEvent = new Event { Id = @event.Id, Title = @event.Title, DateTime = @event.DateTime, Place = @event.Place, Category = await _context.Categories.FindAsync(@event.CategoryId) };
+                    _context.Update(updateEvent);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -233,7 +281,6 @@ namespace CompetitionApp.Controllers
             }
             return View(@event);
         }
-
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
