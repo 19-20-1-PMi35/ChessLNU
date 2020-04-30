@@ -547,6 +547,15 @@ a.socialIcon:hover, .socialHoverClass {
     transform: scale(1.2);
 }
 
+.admin-model-header {
+    margin-bottom: 20px;
+}
+
+.info-photo {
+    margin-bottom: 50px;
+
+}
+
 /* Стилі для малих екранів */
 
 @media screen and (max-width: 780px) {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing;
 using System.Drawing.Imaging;
+using CompetitionApp.ViewModels;
 
 namespace CompetitionApp.Controllers
 {
@@ -21,15 +22,6 @@ namespace CompetitionApp.Controllers
             _context = context;
             _userManager = userManager;
         }
-
-        private byte[] ImageToBytes(Image img, ImageFormat format)
-        {
-            MemoryStream mstream = new MemoryStream();
-            img.Save(mstream, format);
-            mstream.Flush();
-            return mstream.ToArray();
-        }
-
 
         // GET: News
         public async Task<IActionResult> Index()
@@ -62,22 +54,31 @@ namespace CompetitionApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,PublicationDate,Content,Publicator,Image")] News @news)
+        public async Task<IActionResult> Create(NewsViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                //var fileImage = HttpContext.Request.Form.Files["image"];
-                
+            var news = new News { 
+                Title = model.Title, 
+                Content = model.Content, 
+                PublicationDate = DateTime.Now, 
+                PublicatorId = _userManager.GetUserId(HttpContext.User) 
+            };
 
-                news.PublicationDate = DateTime.Now;
-                var userId = _userManager.GetUserId(HttpContext.User);
-                news.PublicatorId = userId;
-                //news.Image = ImageToBytes(Image.FromFile(fileImage.FileName), ImageFormat.Jpeg);
-                _context.Add(@news);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            if (model.Image != null)
+            {
+                byte[] imageData = null;
+
+                using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)model.Image.Length);
+                }
+
+                news.Image = imageData;
             }
-            return View(@news);
+
+            _context.Add(@news);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: News/Edit/5
@@ -97,11 +98,23 @@ namespace CompetitionApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,Image")] News @news)
+        public async Task<IActionResult> Edit(NewsViewModel model)
         {
-            if (id != @news.Id)
+            News news = _context.News.FirstOrDefault(x => x.Id == int.Parse(Request.Form["NewsId"]));
+
+            news.Title = model.Title;
+            news.Content = model.Content;
+
+            if (model.Image != null)
             {
-                return NotFound();
+                byte[] imageData = null;
+
+                using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)model.Image.Length);
+                }
+
+                news.Image = imageData;
             }
 
             if (ModelState.IsValid)
