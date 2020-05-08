@@ -20,7 +20,7 @@
                     <a asp-controller="Home" asp-action="Index" class="nav__link">Головна</a>
                     <a asp-controller="Events" asp-action="Show" class="nav__link">Змагання</a>
                     <a asp-controller="Home" asp-action="Index" class="nav__link">Відео</a>
-                    <a asp-controller="Home" asp-action="Index" class="nav__link">Контакти</a>
+                    <a asp-controller="Contacts" asp-action="Index" class="nav__link">Контакти</a>
                 </nav>
 
                 <nav class="reg">
@@ -74,9 +74,9 @@
                     <h4 class="footer-column-header">Посилання</h4>
                     <div class="footer-column-content">
                         <a href="#">Головна</a>
-                        <a href="#">Змагання</a>
+                        <a asp-controller="Events" asp-action="Show">Змагання</a>
                         <a href="#">Відео</a>
-                        <a href="#">Контакти</a>
+                        <a asp-controller="Contacts" asp-action="Index">Контакти</a>
                     </div>
                 </div>
                 <div class="footer-third-column">
