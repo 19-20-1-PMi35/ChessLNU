@@ -27,7 +27,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
-
+                        <a asp-controller="UserProfile" asp-route-id = "@User.Identity.Name" asp-action="Index" class="nav__link">Профіль</a>
                         <form method="post" asp-controller="Account" asp-action="Logout">
                             <input type="submit" value="Вихід" />
                         </form>
