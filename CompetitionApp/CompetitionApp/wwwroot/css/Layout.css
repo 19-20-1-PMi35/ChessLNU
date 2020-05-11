@@ -1,0 +1,92 @@
+body {
+ 	margin: 0;
+ 	font-family: 'Montserrat', sans-serif;
+
+ 	font-size: 15px;
+ 	color: #333;
+ 	line-height: 1.6;
+ }
+
+ *,
+ *:before,
+ *:after {
+  
+ 		box-sizing: border-box;
+ }
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+
+
+/* Container */
+.container {
+ 	width: 100%;
+ 	max-width: 1200px;
+ 	margin:0 auto;
+ }
+
+
+/* Header */
+.header {
+	width: 100%;
+	background-color: #292b2c;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	margin-bottom: 30px;
+}
+
+.header_inner{
+	display: flex;
+	justify-content: space-between;
+}
+
+
+
+.header__logo {
+	font-family: 'Kaushan Script', cursive;
+	font-size: 35px;
+	font-weight: 700;
+	color: #fff;
+	text-decoration: none;
+	transition: color 0.2s linear;
+}
+
+.header__logo:hover {
+	text-decoration: none;
+	color: lightgrey;
+}
+
+/* Nav */
+.nav {
+	font-size: 24px;
+}
+
+.nav__link {
+	padding: 10px;
+	display: inline-block;
+	vertical-align: top;
+	margin: 10px auto;
+
+	color: #fff;
+	text-decoration: none;
+	transition: color 0.2s linear;
+}
+
+.nav__link:hover {
+	color: lightgrey;
+	text-decoration: none;
+}
+
+.nav__link:hover:after {
+	opacity: 1;
+}
+
+/* Reg */
+.reg {
+	font-size: 24px;
+}
+

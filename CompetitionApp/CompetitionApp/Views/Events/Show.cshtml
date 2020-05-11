@@ -10,10 +10,13 @@
         <form method="get">
             <div class="event-form">
                 <label class="event-label">Назва: </label>
-                <input name="title" value="@Model.EventFilterViewModel.SelectedTitle" class="form-control event-control "/>
+                <input name="title" value="@Model.EventFilterViewModel.SelectedTitle" class="event-control " />
 
                 <label class="event-label">Категорія: </label>
-                <select name="category" asp-items="Model.EventFilterViewModel.Categories" class="form-control event-control "></select>
+                <select name="parentCategory" asp-items="Model.EventFilterViewModel.ParentCategories" class="event-control "></select>
+
+                <label class="event-label">Підкатегорія: </label>
+                <select name="category" asp-items="Model.EventFilterViewModel.Categories" class="event-control"></select>
 
                 <input type="submit" value="Фільтр" class="btn btn-dark" />
             </div>
@@ -32,7 +35,17 @@
                             <p>Місце проведення: @item.Place</p>
                             <p>Дата проведення: @item.DateTime</p>
                         </div>
-                        <a class="btn btn-dark event-btn text-white">Взяти участь</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (!(ViewBag.Id.Contains(item.Id)))
+                            {
+                                <a asp-controller="Events" asp-action="UserRegistrationOnEvent" asp-route-eventId="@item.Id" class="btn btn-dark event-btn text-white">Взяти участь</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Events" asp-action="CanselUserRegistrationOnEvent" asp-route-eventId="@item.Id" class="btn btn-dark event-btn text-white">Скасувати участь</a>
+                            }
+                        }
                     </div>
                 </ul>
             }

@@ -1,0 +1,26 @@
+﻿@model CompetitionApp.Models.NewsComment
+
+@{
+    ViewData["Title"] = "CommentForm";
+}
+
+
+
+<form asp-action="Comment" class="comment-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row-center">
+        <div class="form-group form-group-text">
+            @Html.Hidden("NewsId", @ViewData.Eval("NewsId"))
+            <textarea asp-for="@Model.Text" TextMode="MultiLine" class="form-control"></textarea>
+            <span asp-validation-for="@Model.Text" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row-center">
+        <div class="form-group">
+
+            <input type="submit" value="Додати коментар" class="btn btn-dark" />
+        </div>
+    </div>
+</form>

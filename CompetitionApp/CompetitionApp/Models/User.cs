@@ -11,6 +11,6 @@ namespace CompetitionApp.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public UserProfile Profile { get; set; }
-        public UserHistory History { get; set; }
+        public List<UserHistory> History { get; set; }
     }
 }

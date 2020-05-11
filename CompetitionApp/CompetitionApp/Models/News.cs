@@ -12,7 +12,7 @@ namespace CompetitionApp.Models
         public string Title { get; set; }
         public DateTime PublicationDate { get; set; }
         public string Content { get; set; }
-        public User Publicator { get; set; }
+        public string PublicatorId { get; set; }
         public byte[] Image { get; set; }
     }
 }

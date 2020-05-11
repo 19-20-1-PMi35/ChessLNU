@@ -16,8 +16,42 @@
     margin: 0 auto;
 }
 
-/*Стилі головної сторінки*/
+/* Хедер */
 
+.header form {
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px auto;
+}
+
+.header-login {
+    padding: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px auto;
+    color: #fff;
+}
+
+.header-login span {
+    color: lightgrey;
+}
+
+.header input[type=submit] {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s linear;
+}
+
+.header input[type=submit]:hover {
+    color: lightgrey;
+}
+
+/*Стилі головної сторінки*/
 .home-title {
     text-align: center;
     margin-bottom: 40px;
@@ -83,6 +117,167 @@
     padding: 5px;
 }
 
+/* Пагінація */
+
+.page-item a {
+    color: #292b2c;
+}
+
+.page-item:hover a {
+    color: #292b2c;
+}
+
+.page-item.active .page-link {
+    background-color: #292b2c;
+    border: 1px solid #292b2c;
+}
+
+.page-item.active .page-link:hover {
+    color: white;
+}
+
+/*Стилі сторінки детальної інформації про новину*/
+.content-lg {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: rgb(241, 239, 239);
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin: 0 auto 30px;
+    overflow: hidden;
+}
+
+.info-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.back-button {
+    padding: 5px;
+    margin-left: 75%;
+}
+
+.info-news-about {
+    display: list-item;
+    width: 100%;
+}
+
+.info-news-title {
+    word-wrap: break-word;
+    font-size: 25px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.info-news-date {
+    display: block;
+    margin: auto 0;
+    font-size: 18px;
+}
+
+.info-news-content {
+    margin-top:15px;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Hind, sans-serif;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.info-photo {
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+}
+
+.section-seperator {
+    border-bottom: 1px solid #edf0f2;
+}
+
+.sm-margin-l-30 {
+    margin-left: 30px !important;
+}
+
+/* Стилі секції з коментарями до новини */
+
+.news-comments-header {
+    margin: 70px 0 40px;
+}
+
+.comments-warning {
+    max-width: 80%;
+    text-align: center;
+    margin: 0 auto 50px;
+}
+
+.comments-warning a:hover {
+    text-decoration: none;
+}
+
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comment {
+    width: 50%;
+    border: 2px solid grey;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.comment-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #292b2c;
+    border-bottom: 2px solid grey;
+    color: white;
+}
+
+.comment-author {
+    font-size: 16px;
+}
+
+.comment-content {
+    text-align: justify;
+    padding: 10px;
+    background: rgb(241, 239, 239);
+    word-break: break-all
+}
+
+.comment-form {
+    margin: 0 auto;
+    border: 2px solid grey;
+    border-radius: 10px;
+    width: 50%;
+    margin-bottom: 50px;
+}
+
+.comment-form .form-group-text {
+    width: 100%;
+}
+
+.comment-form textarea {
+    min-height: 150px;
+    margin-bottom: -20px;
+}
+
+.comment-form .form-group {
+    display: flex;
+    justify-content: center;
+}
+
+.row-center {
+    display: flex;
+    justify-content: center;
+}
+
+
+
 /* Стилі сторінки змагань */
 .events-title {
     text-align: center;
@@ -127,7 +322,7 @@
 }
 
 .event-form {
-    justify-content: center;
+    justify-content: right;
     width: 50%;
     align-items: normal;
     display: inline-flex;
@@ -147,12 +342,49 @@
 
 .event-control {
     margin-right: 15px;
+    margin-left: 15px;
+    border-radius: 8%;
+    border-color: lightgray;
+    border-width: 1px;
+    min-width: 80px;
+    max-width: 100px;
 }
+
 
 .event-btn {
     padding: 5px;
     margin-left: 30%;
     margin-right: 30%;
+}
+
+/* Стилі сторінки з контактами */
+
+.contacts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 50px 0 50px 20%;
+}
+
+.contacts-item {
+    margin-bottom: 45px;
+}
+
+.contacts-title {
+    margin-bottom: 10px;
+}
+
+.contacts-map {
+    width: 60%;
+    height: 415px;
+    margin: 0 auto 30px;
+}
+
+.contacts-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #292b2c;
 }
 
 /* Стилі форм реєстрації, авторизації */
@@ -173,6 +405,185 @@
 
 input[type=checkbox] {
     transform: scale(1.5);
+}
+
+/* Стилі футера */
+
+.footer {
+    background: #292b2c;
+    color: white;
+}
+
+.footer-upper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-upper__text {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-main {
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-main a {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.footer-column-header {
+    margin-bottom: 20px;
+    color: lightgrey;
+}
+
+.footer-first-column {
+    max-width: 25%;
+}
+
+.footer-second-column .footer-column-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-second-column a {
+    color: lightgrey;
+    text-decoration: none;
+    transition: all 0.1s linear;
+}
+
+.footer-second-column a:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+.footer-lower {
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.footer-lower a {
+    color: lightgrey;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+
+.footer-lower a:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Стилі іконок */
+
+ul.social-network {
+    list-style: none;
+    display: inline;
+    padding: 0;
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.social-network a.icoInstagram:hover {
+    background-color: #E1306C;
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3B5998;
+}
+
+.social-network a.icoTwitter:hover {
+    background-color: #33ccff;
+}
+
+.social-network a.icoGoogle:hover {
+    background-color: #BD3518;
+}
+
+.social-network a.icoVimeo:hover {
+    background-color: #0590B8;
+}
+
+.social-network a.icoLinkedin:hover {
+    background-color: #007bb7;
+}
+
+.social-network a.icoInstagram:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+    color: #fff;
+}
+
+a.socialIcon:hover, .socialHoverClass {
+    color: #44BCDD;
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    background-color: none /*#D3D3D3*/;
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+}
+
+.social-circle li a:hover i, .triggeredHover {
+    transform: rotate(360deg);
+    transition: all 0.2s;
+}
+
+.social-circle i {
+    color: #fff;
+    transition: all 0.8s;
+}
+
+/* Стилі сторінки адміністратора */
+
+.admin-header {
+    margin-bottom: 50px;
+}
+
+.admin-link {
+    font-size: 24px;
+    text-align: center;
+    display: block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #292b2c;
+    transition: all 0.2s;
+}
+
+.admin-link:hover {
+    color: grey;
+    text-decoration: none;
+    transform: scale(1.1);
+}
+
+.admin-list li:hover {
+    transform: scale(1.2);
+}
+
+.admin-model-header {
+    margin-bottom: 20px;
+}
+
+.info-photo {
+    margin-bottom: 50px;
+
 }
 
 /* Стилі для малих екранів */
@@ -205,5 +616,27 @@ input[type=checkbox] {
     .form-group {
         margin: 10px;
         width: 90%;
+    }
+
+    /* Футер */
+    .footer-main {
+        flex-direction: column;
+    }
+
+    .footer-column {
+        margin-bottom: 15px;
+    }
+
+    .footer-first-column {
+        max-width: 100%;
+    }
+
+    .footer-second-column {
+        margin-bottom: 20px;
+    }
+
+    .footer-upper {
+        flex-direction: column;
+        align-items: center;
     }
 }
