@@ -19,26 +19,20 @@ namespace CompetitionApp.Controllers
         {
            db = context;
         }
-        public IActionResult Index()
-        {
-            UserProfile up = db.UserProfiles.FirstOrDefault();
-            return View(up);
-        }
-        public async Task<IActionResult> Details(string? id)
+        public async Task<IActionResult> Index(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @up = await _context.UserProfiles
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (@up == null)
+            var up = await db.UserProfiles.FirstOrDefaultAsync(m => m.Name + m.Surname == id);
+            if (up == null)
             {
                 return NotFound();
             }
 
-            return View(@up);
+            return View(up);
         }
     }
 }
