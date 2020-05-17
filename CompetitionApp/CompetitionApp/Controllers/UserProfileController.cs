@@ -26,7 +26,7 @@ namespace CompetitionApp.Controllers
                 return NotFound();
             }
 
-            var up = await db.UserProfiles.FirstOrDefaultAsync(m => m.Name + m.Surname == id);
+            var up = await db.UserProfiles.FirstOrDefaultAsync(m => m.Id == id);
             if (up == null)
             {
                 return NotFound();
