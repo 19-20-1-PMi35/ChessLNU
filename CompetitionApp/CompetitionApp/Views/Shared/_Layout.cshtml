@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,7 +30,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
-                        <a asp-controller="UserProfile" asp-route-id = "@User.Identity.Name" asp-action="Index" class="nav__link">Профіль</a>
+                        <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Профіль</a>
                         <form method="post" asp-controller="Account" asp-action="Logout">
                             <input type="submit" value="Вихід" />
                         </form>
@@ -66,8 +69,10 @@
                 <div class="footer-first-column">
                     <h4 class="footer-column-header">Про нас</h4>
                     <div class="footer-column-content">
-                        <p>Ми хочемо надати студентам та викладачам різних ВУЗів України можливість змагатися в різноманітних дисциплінах,
-                           щоб дізнатися, хто з них найращий. Тож не гайте часу і приєднуйтеся!</p>
+                        <p>
+                            Ми хочемо надати студентам та викладачам різних ВУЗів України можливість змагатися в різноманітних дисциплінах,
+                            щоб дізнатися, хто з них найращий. Тож не гайте часу і приєднуйтеся!
+                        </p>
                     </div>
                 </div>
                 <div class="footer-second-column">
