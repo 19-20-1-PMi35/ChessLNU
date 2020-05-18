@@ -18,19 +18,20 @@
         <div class="container">
             <div class="header_inner">
                 <a asp-controller="Home" asp-action="Index" class="header__logo">LNU Competition</a>
+                
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
 
                 <nav class="nav">
                     <a asp-controller="Home" asp-action="Index" class="nav__link">Головна</a>
                     <a asp-controller="Events" asp-action="Show" class="nav__link">Змагання</a>
                     <a asp-controller="Home" asp-action="Index" class="nav__link">Відео</a>
                     <a asp-controller="Contacts" asp-action="Index" class="nav__link">Контакти</a>
-                </nav>
 
-                <nav class="reg">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
-                        <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Профіль</a>
+                        <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Кабінет</a>
                         <form method="post" asp-controller="Account" asp-action="Logout">
                             <input type="submit" value="Вихід" />
                         </form>
@@ -41,9 +42,48 @@
                         <a class="nav__link" asp-controller="Account" asp-action="Register">Реєстрація</a>
                     }
                 </nav>
+                <!--
+                <nav class="reg">
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
+                    <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Профіль</a>
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input type="submit" value="Вихід" />
+                    </form>
+                }
+                else
+                {
+                    <a class="nav__link" asp-controller="Account" asp-action="Login">Вхід</a>
+                    <a class="nav__link" asp-controller="Account" asp-action="Register">Реєстрація</a>
+                }
+
+                </nav>-->
             </div>
         </div>
     </header>
+
+    <nav class="nav-mobile">
+        <a asp-controller="Home" asp-action="Index" class="nav__link-mobile">Головна</a>
+        <a asp-controller="Events" asp-action="Show" class="nav__link-mobile">Змагання</a>
+        <a asp-controller="Home" asp-action="Index" class="nav__link-mobile">Відео</a>
+        <a asp-controller="Contacts" asp-action="Index" class="nav__link-mobile">Контакти</a>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link-mobile">Кабінет</a>
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <input type="submit" value="Вихід" />
+            </form>
+        }
+        else
+        {
+            <a class="nav__link-mobile" asp-controller="Account" asp-action="Login">Вхід</a>
+            <a class="nav__link-mobile" asp-controller="Account" asp-action="Register">Реєстрація</a>
+        }
+    </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -106,5 +146,17 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script>
+        $('.menu__btn').click(function () {
+
+            if ( $('.nav-mobile').css('display') == 'none' )
+                $('.nav-mobile').css('display','flex');
+            else
+                $('.nav-mobile').css('display', 'none');
+
+            $('.menu__btn').toggleClass('active');
+        });
+    </script>
 </body>
 </html>
