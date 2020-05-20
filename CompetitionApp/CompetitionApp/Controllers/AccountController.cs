@@ -28,6 +28,33 @@ namespace CompetitionApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            //Uncomment it to create Admin User
+            //User user1 = new User { UserName = "admin", Password = "Aaqwerty!1", Email = "someAdmin@gmail.com", IsAdmin = true };
+
+            //// додавання користувача
+            //var result1 = await _userManager.CreateAsync(user1, user1.Password);
+
+            //if (result1.Succeeded)
+            //{
+            //    UserProfile profile = new UserProfile
+            //    {
+            //        Id = user1.Id,
+            //        Name = model.Name,
+            //        Surname = model.Surname,
+            //        BirthDate = model.BirthDate,
+            //        University = model.University,
+            //        Faculty = model.Faculty
+            //    };
+
+            //    _context.UserProfiles.Add(profile);
+            //    _context.SaveChanges();
+
+            //    // встановлення cookies
+            //    await _signInManager.SignInAsync(user1, false);
+            //    return RedirectToAction("Index", "Home");
+            //}
+
+
             if (ModelState.IsValid)
             {  
                 User user = new User { Email = model.Email, UserName = model.UserName, IsAdmin = false };
