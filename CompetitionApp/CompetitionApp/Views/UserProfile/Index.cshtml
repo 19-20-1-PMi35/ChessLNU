@@ -1,5 +1,5 @@
-﻿@using CompetitionApp.Models
-@model UserProfile
+﻿@using CompetitionApp.ViewModels
+@model UserProfileViewModel
 @addTagHelper *, CompetitionApp
 @{
     ViewData["Title"] = "UserProfile";
@@ -30,10 +30,18 @@
 
             <div class="card">
 
-                <h1>@Model.Surname</h1>
-                <h1>@Model.Name</h1>
-                <p class="title">Дата народження: @Model.BirthDate</p>
-                <p>@Model.University</p>
-                <p>Факультет: @Model.Faculty</p>
+                <h1>@Model.userProfile.Surname</h1>
+                <h1>@Model.userProfile.Name</h1>
+                <p class="title">Дата народження: @Model.userProfile.BirthDate</p>
+                <p>@Model.userProfile.University</p>
+                <p>Факультет: @Model.userProfile.Faculty</p>
+                @foreach (Event item in Model.userEvents)
+                {
+                    <p>Категорія: @item.Category</p>
+                    <p>Категорія: @item.DateTime</p>
+                    <p>Категорія: @item.IsFinished</p>
+                    <p>Категорія: @item.Title</p>
+                    <p>Категорія: @item.Place</p>
+                }
             </div>
 </div>
