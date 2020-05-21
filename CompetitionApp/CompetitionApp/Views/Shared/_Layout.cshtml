@@ -30,7 +30,15 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Кабінет</a>
+                        @if (UserManager.Users.First(u => u.Id == UserManager.GetUserId(User)).IsAdmin)
+                        {
+                            <a class="nav__link" asp-controller="Admin" asp-action="Index">Адміністрування</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Кабінет</a>
+                        }
+
                         <form method="post" asp-controller="Account" asp-action="Logout">
                             <input type="submit" value="Вихід" />
                         </form>
@@ -41,24 +49,6 @@
                         <a class="nav__link" asp-controller="Account" asp-action="Register">Реєстрація</a>
                     }
                 </nav>
-                <!--
-                <nav class="reg">
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="header-login text-white" asp-controller="Home" asp-action="Index">Вітаємо, <span>@User.Identity.Name</span></div>
-                    <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Профіль</a>
-                    <form method="post" asp-controller="Account" asp-action="Logout">
-                        <input type="submit" value="Вихід" />
-                    </form>
-                }
-                else
-                {
-                    <a class="nav__link" asp-controller="Account" asp-action="Login">Вхід</a>
-                    <a class="nav__link" asp-controller="Account" asp-action="Register">Реєстрація</a>
-                }
-
-                </nav>-->
             </div>
         </div>
     </header>
@@ -71,9 +61,17 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            <a asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link-mobile">Кабінет</a>
-            <form method="post" asp-controller="Account" asp-action="Logout">
-                <input type="submit" value="Вихід" />
+            @if (UserManager.Users.First(u => u.Id == UserManager.GetUserId(User)).IsAdmin)
+            {
+                <a class="nav__link-mobile" asp-controller="Admin" asp-action="Index">Адміністрування</a>
+            }
+            else
+            {
+                <a class="nav__link-mobile" asp-controller="UserProfile" asp-route-id="@UserManager.GetUserId(User)" asp-action="Index" class="nav__link">Кабінет</a>
+            }
+
+            <form class="nav__link-mobile" method="post" asp-controller="Account" asp-action="Logout">
+                <input class="nav__link-mobile" type="submit" value="Вихід" />
             </form>
         }
         else

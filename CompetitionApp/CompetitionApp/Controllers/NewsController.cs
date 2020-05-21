@@ -26,7 +26,13 @@ namespace CompetitionApp.Controllers
         // GET: News
         public async Task<IActionResult> Index()
         {
-            return View(await _context.News.ToListAsync());
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null || !user.IsAdmin)
+            {
+                return StatusCode(403);
+            }
+            else return View(await _context.News.ToListAsync());
         }
 
         // GET: News/Details/5

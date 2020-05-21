@@ -6,20 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CompetitionApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
 
 namespace CompetitionApp.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ApplicationContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public CategoriesController(ApplicationContext context)
+        public CategoriesController(ApplicationContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null || !user.IsAdmin)
+            {
+                return StatusCode(403);
+            }
+            else return View(await _context.Categories.ToListAsync());
         }
 
         public async Task<IActionResult> Create()

@@ -23,7 +23,13 @@ namespace CompetitionApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null || !user.IsAdmin)
+            {
+                return StatusCode(403);
+            }
+            else return View(await _context.Users.ToListAsync());
         }
 
         public async Task<IActionResult> Edit(string? id)

@@ -51,6 +51,22 @@
     color: lightgrey;
 }
 
+.nav-mobile form {
+    padding: 0;
+    display: block;
+}
+
+.nav-mobile input {
+    margin: 0;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s linear;
+}
+
 /*Стилі головної сторінки*/
 .home-title {
     text-align: center;
