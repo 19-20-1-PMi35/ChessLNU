@@ -25,7 +25,13 @@ namespace CompetitionApp.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.Include(c => c.Category).ToListAsync());
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null || !user.IsAdmin)
+            {
+                return StatusCode(403);
+            }
+            else return View(await _context.Events.Include(c => c.Category).ToListAsync());
         }
 
         public async Task<IActionResult> Show(int? parentCategory, int? category, string title, int page = 1)
