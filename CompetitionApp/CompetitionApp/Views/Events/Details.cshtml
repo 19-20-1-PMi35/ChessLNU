@@ -42,6 +42,26 @@
         </dd>
     </dl>
 </div>
+<div class="event-content">
+    <h1 class="events-title">Список учасників:</h1>
+    @if (((List<User>)ViewBag.Participans).Count > 0)
+    {
+        @foreach (User item in (List<User>)ViewBag.Participans)
+        {
+            <ul class="event-item">
+                <div class="event-content">
+                    <p>
+                        Учасник: @item.UserName тел: @item.PhoneNumber email: @item.Email
+                    </p>
+                </div>
+            </ul>
+        }
+    }
+    else 
+    {
+        <h2 class="events-title">Немає учасників.</h2>
+    }
+</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

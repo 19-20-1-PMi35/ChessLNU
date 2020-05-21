@@ -127,10 +127,17 @@ namespace CompetitionApp.Controllers
 
             var @event = await _context.Events.Include(c => c.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var usersId = _context.UserHistories.Where(u => u.EventId == id).Select(u => u.UserId).ToList();
+            var users = new List<User>();
+            foreach (var i in usersId)
+            {
+                users.Add(_context.Users.Where(e => e.Id == i).FirstOrDefault());
+            }
             if (@event == null)
             {
                 return NotFound();
             }
+            ViewBag.Participans = users;
 
             return View(@event);
         }
