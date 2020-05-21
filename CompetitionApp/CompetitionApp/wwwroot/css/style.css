@@ -301,10 +301,6 @@
 
 .event-content {
     padding: 3%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .event-title {
@@ -352,14 +348,12 @@
 
 
 .event-btn {
+    width: 30%;
     padding: 5px;
-    margin-left: 30%;
-    margin-right: 30%;
 }
 
 /* Стилі сторінки з контактами */
-
-.contacts-container {
+    .contacts-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

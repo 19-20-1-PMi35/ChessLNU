@@ -37,6 +37,10 @@
                         </div>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @if (ViewBag.IsAdmin)
+                            {
+                                <a asp-controller="Events" asp-action="ShowParticipants" asp-route-eventId="@item.Id" class="btn btn-dark event-btn text-white">Список учасників</a>
+                            }
                             @if (!(ViewBag.Id.Contains(item.Id)))
                             {
                                 <a asp-controller="Events" asp-action="UserRegistrationOnEvent" asp-route-eventId="@item.Id" class="btn btn-dark event-btn text-white">Взяти участь</a>
