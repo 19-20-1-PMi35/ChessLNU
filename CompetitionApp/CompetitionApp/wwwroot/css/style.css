@@ -332,8 +332,9 @@
 }
 
 .event-label {
-    margin-right:10px;
-    font-weight:bold;
+    margin-right: 10px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .event-control {
@@ -351,9 +352,14 @@
     width: 30%;
     padding: 5px;
 }
-
+.show-participants-btn {
+    float:right;
+}
+input.btn.btn-dark {
+    margin-left: 50px;
+}
 /* Стилі сторінки з контактами */
-    .contacts-container {
+.contacts-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
