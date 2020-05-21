@@ -43,15 +43,17 @@ namespace CompetitionApp.Controllers
             var userId = _userManager.GetUserId(HttpContext.User);
             if (userId != null)
             {
-                List<UserHistory> @userHistory = await _context.UserHistories.Include(e => e.Event).ToListAsync();
-                if (@userHistory != null)
+                var userHistories = _context.UserHistories.Where(m => m.UserId == userId).ToList();
+                if (userHistories != null)
                 {
                     List<int> userEventsId = new List<int>();
-                    for (int i = 0; i < @userHistory.Count(); i++)
+                    foreach(var userHistory in userHistories)
                     {
-                        userEventsId.Add(@userHistory[i].EventId);
+                        userEventsId.Add(_context.Events.Where(e => e.Id == userHistory.EventId).Select(e=>e.Id).FirstOrDefault());
                     }
                     ViewBag.Id = userEventsId;
+                    User user = await _userManager.FindByIdAsync(userId);
+                    ViewBag.IsAdmin = user.IsAdmin;
                 }
                 else
                 {
@@ -149,6 +151,19 @@ namespace CompetitionApp.Controllers
             }
 
             return RedirectToAction(nameof(Show));
+        }
+
+        public IActionResult ShowParticipants(int eventId)
+        {
+            var currEvent = _context.Events.Where(e => e.Id == eventId).FirstOrDefault();
+            var usersId = _context.UserHistories.Where(u => u.EventId == eventId).Select(u=>u.UserId).ToList();
+            var users = new List<User>();
+            foreach (var id in usersId)
+            {
+                users.Add(_context.Users.Where(e => e.Id == id).FirstOrDefault());
+            }
+
+            return View(new ShowParticipantsViewModel { CurrentEvent = currEvent, Participants = users });
         }
 
         public async Task<IActionResult> CanselUserRegistrationOnEvent(int eventId)

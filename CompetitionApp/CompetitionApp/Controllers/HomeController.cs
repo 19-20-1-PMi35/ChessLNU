@@ -29,14 +29,15 @@ namespace CompetitionApp.Controllers
             db = context;
             if (db.Users.Count() == 0)
             {
-                User u1 = new User { UserName = "some_user", Password = "Some2020", Email = "some@gmail.com", IsAdmin = false };
+                //this user is useless
+                User u1 = new User { UserName = "admin", Password = "admin", Email = "someAdmin@gmail.com", IsAdmin = true };
 
-                News news1 = new News { Title = "Event1", PublicationDate = DateTime.Now, Content = "Some Content1", PublicatorId = u1.Id };
-                News news2 = new News { Title = "Event2", PublicationDate = DateTime.Now, Content = "Some Content2", PublicatorId = u1.Id };
-                News news3 = new News { Title = "Event3", PublicationDate = DateTime.Now, Content = "Some Content3", PublicatorId = u1.Id };
-                News news4 = new News { Title = "Event4", PublicationDate = DateTime.Now, Content = "Some Content4", PublicatorId = u1.Id };
-                News news5 = new News { Title = "Event5", PublicationDate = DateTime.Now, Content = "Some Content5", PublicatorId = u1.Id };
-                News news6 = new News { Title = "Event6", PublicationDate = DateTime.Now, Content = "Some Content6", PublicatorId = u1.Id };
+                News news1 = new News { Title = "News1", PublicationDate = DateTime.Now, Content = "Some Content1", PublicatorId = u1.Id };
+                News news2 = new News { Title = "News2", PublicationDate = DateTime.Now, Content = "Some Content2", PublicatorId = u1.Id };
+                News news3 = new News { Title = "News3", PublicationDate = DateTime.Now, Content = "Some Content3", PublicatorId = u1.Id };
+                News news4 = new News { Title = "News4", PublicationDate = DateTime.Now, Content = "Some Content4", PublicatorId = u1.Id };
+                News news5 = new News { Title = "News5", PublicationDate = DateTime.Now, Content = "Some Content5", PublicatorId = u1.Id };
+                News news6 = new News { Title = "News6", PublicationDate = DateTime.Now, Content = "Some Content6", PublicatorId = u1.Id };
 
                 Category category1 = new Category { Name = "Sport", ParentCategoryId = 0 };
                 Category category2 = new Category { Name = "Science", ParentCategoryId = 0 };

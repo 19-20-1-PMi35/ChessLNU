@@ -17,16 +17,16 @@ namespace CompetitionApp.Controllers
 
         public UserProfileController(ApplicationContext context)
         {
-           db = context;
+            db = context;
         }
-        public async Task<IActionResult> Index(string? id)
+        public IActionResult Index(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var up = await db.UserProfiles.FirstOrDefaultAsync(m => m.Id == id);
+            var up = db.UserProfiles.FirstOrDefault(m => m.Id == id);
             if (up == null)
             {
                 return NotFound();

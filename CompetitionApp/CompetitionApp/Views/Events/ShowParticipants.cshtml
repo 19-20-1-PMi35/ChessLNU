@@ -1,0 +1,24 @@
+﻿@using CompetitionApp.ViewModels
+@model ShowParticipantsViewModel
+@{
+    ViewData["Title"] = "ShowParticipants";
+}
+
+    <div class="event-content">
+        <h1 class="events-title">Список учасників на подію: @Model.CurrentEvent.Title</h1>
+        <div class="event-about">
+            <p>Категорія: @Model.CurrentEvent.Category</p>
+            <p>Місце проведення: @Model.CurrentEvent.Place</p>
+            <p>Дата проведення: @Model.CurrentEvent.DateTime</p>
+        </div>
+        @foreach (User item in Model.Participants)
+        {
+            <ul class="event-item">
+                <div class="event-content">
+                    <p>
+                        Учасник: @item.UserName тел: @item.PhoneNumber email: @item.Email
+                    </p>
+                </div>
+            </ul>
+        }
+    </div>

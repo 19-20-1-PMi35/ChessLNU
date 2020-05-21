@@ -11,6 +11,7 @@
     <Compile Remove="Migrations\20200315213226_UserModel.Designer.cs" />
     <Compile Remove="Migrations\20200315214250_user.cs" />
     <Compile Remove="Migrations\20200315214250_user.Designer.cs" />
+    <Compile Remove="ViewModels\UserProfileViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
